@@ -1,6 +1,10 @@
 body {
   background-color: #fcfcfc;
+}
+
+main {
   display: grid;
+  margin: auto;
 }
 
 .card {
