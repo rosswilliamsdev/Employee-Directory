@@ -6,7 +6,7 @@ class Employee {
         this.image = image;
     }
 }
-
+const url = 'https://randomuser.me/api/?results=12'
 const card = document.querySelector(".card");
 const cardsArray = Array.from(document.querySelectorAll(".card"));
 let employees = [];
@@ -16,9 +16,11 @@ let employees = [];
 // ////////////////////
 
  //Basic fetch request // to request 12 users add ?results=12
-fetch('https://randomuser.me/api/?exc=login/')
+fetch(url)
 .then(response => response.json())
-.then(data => generateImage(data.results[0].picture.medium));
+.then(data => employees.push(...data.results))
+
+console.log(employees);
 
 // ////////////////////
 // HELPER FUNCTIONS
@@ -26,9 +28,14 @@ fetch('https://randomuser.me/api/?exc=login/')
 
 function generateImage(data){
     const employeeCardPicture = `<img src="${data}" alt>`;
-    card.innerHTML += employeeCardPicture;
+    cardsArray.forEach(card => {
+        card.innerHTML += employeeCardPicture;
+    })
 }
 
+cardsArray.map(card => {
+
+})
 
 
 
