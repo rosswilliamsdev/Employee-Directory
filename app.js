@@ -9,10 +9,14 @@ class Employee {
 
 const cards = document.querySelectorAll(".card");
 
+// ////////////////////
+// FETCH FUNCTIONS 
+// ////////////////////
+
  //Basic fetch request // to request 12 users add ?results=12
 fetch('https://randomuser.me/api/?exc=login')
 .then(response => response.json())
-.then(data => console.log(data))
+.then(data => console.log(data.results[0]))
 
 
 cards.forEach(card => {
