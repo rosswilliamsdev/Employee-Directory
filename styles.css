@@ -4,11 +4,20 @@ body {
 
 main {
   display: grid;
-  margin: auto;
+  margin: 2rem;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: repeat(4, 1fr);
+  gap: 2rem;
+  height: 100vh;
+}
+
+h2 {
+  margin-left: 2rem;
+  color: #4a4a4a;
 }
 
 .card {
   background-color: white;
-  border: 1px solid #dfdfdf;
-  border-radius: 5px;
+  border: 2px solid #dfdfdf;
+  border-radius: 10px;
 }
