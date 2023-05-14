@@ -8,6 +8,8 @@ class Employee {
 }
 
 const card = document.querySelector(".card");
+const cardsArray = Array.from(document.querySelectorAll(".card"));
+let employees = [];
 
 // ////////////////////
 // FETCH FUNCTIONS 
@@ -16,7 +18,7 @@ const card = document.querySelector(".card");
  //Basic fetch request // to request 12 users add ?results=12
 fetch('https://randomuser.me/api/?exc=login/')
 .then(response => response.json())
-.then(data => console.log(data.results[0].picture.medium))
+.then(data => generateImage(data.results[0].picture.medium));
 
 // ////////////////////
 // HELPER FUNCTIONS
@@ -24,7 +26,7 @@ fetch('https://randomuser.me/api/?exc=login/')
 
 function generateImage(data){
     const employeeCardPicture = `<img src="${data}" alt>`;
-    card.innerHTML = employeeCardPicture;
+    card.innerHTML += employeeCardPicture;
 }
 
 
