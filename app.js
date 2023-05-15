@@ -15,12 +15,21 @@ let employees = [];
 // FETCH FUNCTIONS 
 // ////////////////////
 
- //Basic fetch request // to request 12 users add ?results=12
 fetch(url)
 .then(response => response.json())
 .then(data => employees.push(...data.results))
 
 console.log(employees);
+
+cardsArray.forEach(card => {
+    for (let i=0; i < employees.length; i++) {
+        card.innerHTML += `<img src='${employees[i].picture.medium}>'`;
+        card.innerHTML += `<p>${employees[i]}</p>`;
+        card.innerHTML += `<p>${employees[i].location.city}</p>`;
+        card.innerHTML += `<p>${employees[i].email}</p>`;
+    }
+})
+
 
 // ////////////////////
 // HELPER FUNCTIONS
@@ -33,9 +42,7 @@ function generateImage(data){
     })
 }
 
-cardsArray.map(card => {
 
-})
 
 
 
