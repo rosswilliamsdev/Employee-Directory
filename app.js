@@ -3,7 +3,7 @@ email, location, phone, dob &noinfo &nat=US`;
 const card = document.querySelector(".card");
 const cardsArray = Array.from(document.querySelectorAll(".card"));
 const gridContainer = document.querySelector('.grid-container');
-const modal = document.querySelector('.modal');
+let modal = document.getElementById('modal');
 let employees = [];
 
 // ////////////////////
@@ -52,9 +52,12 @@ gridContainer.innerHTML += employeeHTML;
 // EVENT LISTENERS
 //////////////////
 
-card.addEventListener('click', () => {
 
-})
+gridContainer.addEventListener('click', () => {
+    console.log('click')
+    modal.style.display = 'block';
+});
+
 
 
 // I was told this didn't work because the promise from the fetch wasn't fulfilled by the time this function started, so there were no objects inside the employees array. When this was live, it would return employee[i] is undefined. 
