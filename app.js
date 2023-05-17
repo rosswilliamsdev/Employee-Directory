@@ -1,9 +1,10 @@
 const urlAPI = `https://randomuser.me/api/?results=12&inc=name, picture,
 email, location, phone, dob &noinfo &nat=US`;
-const card = document.querySelector(".card");
-const cardsArray = Array.from(document.querySelectorAll(".card"));
+// let allCards = document.querySelectorAll(".card");
+// let cardsArray = Array.from(allCards);
 const gridContainer = document.querySelector('.grid-container');
 let modal = document.getElementById('modal');
+let closeBtn = document.querySelector('.close-btn');
 let employees = [];
 
 // ////////////////////
@@ -16,6 +17,7 @@ fetch(urlAPI)
 .then(response => response.json())
 .then(response => response.results)
 .then(displayEmployees)
+.then(createCardsArray)
 .catch(error => console.log(error));
 
 
@@ -23,6 +25,19 @@ fetch(urlAPI)
 // ////////////////////
 // HELPER FUNCTIONS
 // /////////////////////
+
+function createCardsArray() {
+    let allCards = document.querySelectorAll(".card");
+    let cardsArray = Array.from(allCards);
+
+    cardsArray.forEach((card) => {
+        card.addEventListener('click', () => {
+            modal.style.display = 'block';
+        })
+    })
+}
+
+
 
 function displayEmployees(employeeData) {
     employees = employeeData;
@@ -48,17 +63,19 @@ gridContainer.innerHTML += employeeHTML;
 }
 
 
-//////////////////
+//////////////////////
 // EVENT LISTENERS
-//////////////////
+//////////////////////
 
 
-gridContainer.addEventListener('click', () => {
-    console.log('click')
-    modal.style.display = 'block';
-});
+closeBtn.addEventListener('click', () => modal.style.display = 'none');
 
 
+
+
+//////////////////////
+// Old code I'm keeping for now
+//////////////////////
 
 // I was told this didn't work because the promise from the fetch wasn't fulfilled by the time this function started, so there were no objects inside the employees array. When this was live, it would return employee[i] is undefined. 
 
