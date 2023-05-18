@@ -59,7 +59,7 @@ main {
   margin: 2rem auto 2rem auto;
 }
 
-.modal {
+.modal-container {
   display: none;
   margin: auto;
   position: fixed;
