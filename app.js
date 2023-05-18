@@ -31,7 +31,7 @@ fetch(urlAPI)
 function createCardsArray() {
     let allCards = document.querySelectorAll(".card");
     let cardsArray = Array.from(allCards);
-    let modalHTML = '';
+    
 
     cardsArray.forEach((card) => {
         card.addEventListener('click', createModal)
@@ -44,7 +44,7 @@ function createModal(index) {
 
     let date = new Date(dob.date);
 
-    modalHTML = `
+    let modalHTML = `
     <img class="avatar" src="${picture.large}" />
     <div class="text-container">
         <h2 class='name'>${name.first} ${name.last}</h2>
