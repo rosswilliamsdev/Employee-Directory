@@ -3,7 +3,8 @@ email, location, phone, dob &noinfo &nat=US`;
 // let allCards = document.querySelectorAll(".card");
 // let cardsArray = Array.from(allCards);
 const gridContainer = document.querySelector('.grid-container');
-let modal = document.getElementById('modal');
+let modalContainer = document.getElementById('modal');
+let modalContent = document.querySelector('.modal-content')
 let closeBtn = document.querySelector('.close-btn');
 let employees = [];
 
@@ -18,6 +19,7 @@ fetch(urlAPI)
 .then(response => response.results)
 .then(displayEmployees)
 .then(createCardsArray)
+.then(createModal)
 .catch(error => console.log(error));
 
 
@@ -29,12 +31,36 @@ fetch(urlAPI)
 function createCardsArray() {
     let allCards = document.querySelectorAll(".card");
     let cardsArray = Array.from(allCards);
+    let modalHTML = '';
 
     cardsArray.forEach((card) => {
-        card.addEventListener('click', () => {
-            modal.style.display = 'block';
-        })
+        card.addEventListener('click', createModal)
     })
+}
+
+function createModal(index) {
+    let { name, dob, phone, email, location: 
+        { city, street, state, postcode}, picture } = employees[index];
+
+    let date = new Date(dob.date);
+
+    modalHTML = `
+    <img class="avatar" src="${picture.large}" />
+    <div class="text-container">
+        <h2 class='name'>${name.first} ${name.last}</h2>
+        <p class="email">${email}</p>
+        <p class='address'>${city}</p>
+        <hr />
+        <p>${phone}</p>
+        <p class="address">${street}, ${state} ${postcode}</p>
+        <p>Birthday:
+        ${date.getMonth()}/${date.getDate()}/${date.getFullYear()}</p>
+    </div>
+    `;;
+    modalContent.innerHTML = modalHTML;
+
+    console.log('click');
+    modalContainer.style.display = 'block';
 }
 
 
@@ -68,7 +94,7 @@ gridContainer.innerHTML += employeeHTML;
 //////////////////////
 
 
-closeBtn.addEventListener('click', () => modal.style.display = 'none');
+closeBtn.addEventListener('click', () => modalContainer.style.display = 'none');
 
 
 
