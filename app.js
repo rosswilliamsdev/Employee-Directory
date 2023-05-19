@@ -13,7 +13,7 @@ let employees = [];
 // FETCH FUNCTIONS 
 // ////////////////////
 
-
+// Convert this to async/await with helper functions
 
 fetch(urlAPI)
 .then(response => response.json())
@@ -62,13 +62,12 @@ function displayEmployees(employeeData) {
 gridContainer.innerHTML += employeeHTML;
 }
 
-function createModal(index) {
+async function createModal(index) {
     let { name, dob, phone, email, location: 
-        { city, street, state, postcode}, picture } = employees[index];
+        { city, street, state, postcode}, picture } = await employees[index];
     let date = new Date(dob.date);
 
     let modalHTML = `
-    <p class="close-btn">&times;</p>
     <img class="avatar" src="${picture.large}" />
     <div class="text-container">
         <h2 class='name'>${name.first} ${name.last}</h2>
@@ -80,37 +79,31 @@ function createModal(index) {
         <p>Birthday:
         ${date.getMonth()}/${date.getDate()}/${date.getFullYear()}</p>
     </div>
-    `;;
+    `;
     modalContent.innerHTML = modalHTML;
 
     console.log('click');
     modalContainer.style.display = 'block';
 }
 
-
+function closeModal() {
+    modalContainer.style.display = "none";
+}
 
 //////////////////////
 // EVENT LISTENERS
 //////////////////////
 
 
-closeBtn.addEventListener('click', () => modalContainer.style.display = 'none');
-
-
-
-
-
-//////////////////////
-// Old code I'm keeping for now
-//////////////////////
-
-// I was told this didn't work because the promise from the fetch wasn't fulfilled by the time this function started, so there were no objects inside the employees array. When this was live, it would return employee[i] is undefined. 
-
-// cardsArray.forEach(card => {
-//     for(let i=0; i < employees.length; i++){
-//         card.innerHTML += `<img src='${employees[i].picture.medium}'>`;
-//         card.innerHTML += `<p>${employees[i]}</p>`;
-//         card.innerHTML += `<p>${employees[i].location.city}</p>`;
-//         card.innerHTML += `<p>${employees[i].email}</p>`;
-//     }
-// });
+// got this from https://tinyurl.com/5b6by8vs
+document.addEventListener("click", (e) => {
+    // If user either clicks X button OR clicks outside the modal window, then close modal by calling closeModal()
+    if (
+      e.target.matches(".close-btn") ||
+      !e.target.closest(".modal")
+    ) {
+      closeModal()
+    }
+  },
+  false
+)
