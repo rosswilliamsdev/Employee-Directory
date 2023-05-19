@@ -8,6 +8,7 @@ let modalContent = document.querySelector('.modal-content')
 let closeBtn = document.querySelector('.close-btn');
 let employees = [];
 
+
 // ////////////////////
 // FETCH FUNCTIONS 
 // ////////////////////
@@ -19,7 +20,6 @@ fetch(urlAPI)
 .then(response => response.results)
 .then(displayEmployees)
 .then(createCardsArray)
-.then(createModal)
 .catch(error => console.log(error));
 
 
@@ -29,41 +29,15 @@ fetch(urlAPI)
 // /////////////////////
 
 function createCardsArray() {
+    let card = document.querySelector('.card')
     let allCards = document.querySelectorAll(".card");
     let cardsArray = Array.from(allCards);
-    
+    let index = card.getAttribute('data-index');
 
     cardsArray.forEach((card) => {
-        card.addEventListener('click', createModal)
+        card.addEventListener('click', createModal(index))
     })
 }
-
-function createModal(index) {
-    let { name, dob, phone, email, location: 
-        { city, street, state, postcode}, picture } = employees[index];
-
-    let date = new Date(dob.date);
-
-    let modalHTML = `
-    <img class="avatar" src="${picture.large}" />
-    <div class="text-container">
-        <h2 class='name'>${name.first} ${name.last}</h2>
-        <p class="email">${email}</p>
-        <p class='address'>${city}</p>
-        <hr />
-        <p>${phone}</p>
-        <p class="address">${street}, ${state} ${postcode}</p>
-        <p>Birthday:
-        ${date.getMonth()}/${date.getDate()}/${date.getFullYear()}</p>
-    </div>
-    `;;
-    modalContent.innerHTML = modalHTML;
-
-    console.log('click');
-    modalContainer.style.display = 'block';
-}
-
-
 
 function displayEmployees(employeeData) {
     employees = employeeData;
@@ -88,6 +62,32 @@ function displayEmployees(employeeData) {
 gridContainer.innerHTML += employeeHTML;
 }
 
+function createModal(index) {
+    let { name, dob, phone, email, location: 
+        { city, street, state, postcode}, picture } = employees[index];
+    let date = new Date(dob.date);
+
+    let modalHTML = `
+    <p class="close-btn">&times;</p>
+    <img class="avatar" src="${picture.large}" />
+    <div class="text-container">
+        <h2 class='name'>${name.first} ${name.last}</h2>
+        <p class="email">${email}</p>
+        <p class='address'>${city}</p>
+        <hr />
+        <p>${phone}</p>
+        <p class="address">${street}, ${state} ${postcode}</p>
+        <p>Birthday:
+        ${date.getMonth()}/${date.getDate()}/${date.getFullYear()}</p>
+    </div>
+    `;;
+    modalContent.innerHTML = modalHTML;
+
+    console.log('click');
+    modalContainer.style.display = 'block';
+}
+
+
 
 //////////////////////
 // EVENT LISTENERS
@@ -95,6 +95,7 @@ gridContainer.innerHTML += employeeHTML;
 
 
 closeBtn.addEventListener('click', () => modalContainer.style.display = 'none');
+
 
 
 
