@@ -23,19 +23,33 @@ fetch(urlAPI)
 .catch(error => console.log(error));
 
 
+const fetchData = async (url) => {
+    const response = await fetch(url);
 
+// const data = await response.json()
+// const res = data.results
+
+    const {results } = await response.json();
+
+    
+    console.log(results)
+    // console.log(res)
+    
+}
+
+fetchData(urlAPI);
 // ////////////////////
 // HELPER FUNCTIONS
 // /////////////////////
 
 function createCardsArray() {
-    let card = document.querySelector('.card')
     let allCards = document.querySelectorAll(".card");
     let cardsArray = Array.from(allCards);
-    let index = card.getAttribute('data-index');
-
-    cardsArray.forEach((card) => {
-        card.addEventListener('click', createModal(index))
+    cardsArray.forEach((card, index) => {
+        card.addEventListener('click', (e) => {
+            e.stopPropagation();
+            createModal(index)
+        })
     })
 }
 
@@ -62,27 +76,28 @@ function displayEmployees(employeeData) {
 gridContainer.innerHTML += employeeHTML;
 }
 
-async function createModal(index) {
-    let { name, dob, phone, email, location: 
-        { city, street, state, postcode}, picture } = await employees[index];
+function createModal(index) {
+    let { name, dob, phone, email, location, picture } = employees[index];
+    // let { name, dob, phone, email, location: 
+    //     { city, street, state, postcode}, picture } = await employees[index];
     let date = new Date(dob.date);
-
+    console.log(employees[index])
+    console.log(location)
     let modalHTML = `
     <img class="avatar" src="${picture.large}" />
     <div class="text-container">
         <h2 class='name'>${name.first} ${name.last}</h2>
         <p class="email">${email}</p>
-        <p class='address'>${city}</p>
+        <p class='address'>${location.city}</p>
         <hr />
         <p>${phone}</p>
-        <p class="address">${street}, ${state} ${postcode}</p>
+        <p class="address">${location.street.number} ${location.street.name}, ${location.state} ${location.postcode}</p>
         <p>Birthday:
         ${date.getMonth()}/${date.getDate()}/${date.getFullYear()}</p>
     </div>
     `;
     modalContent.innerHTML = modalHTML;
 
-    console.log('click');
     modalContainer.style.display = 'block';
 }
 
