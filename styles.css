@@ -1,10 +1,12 @@
 * {
   font-family: "Open Sans", sans-serif;
-  color: #4a4a4a;
 }
 
 body {
   background-color: #fcfcfc;
+  color: #4a4a4a;
+  display: flex;
+  flex-direction: column;
 }
 
 main {
@@ -15,10 +17,12 @@ main {
   gap: 1rem;
   height: 100%;
   width: 100%;
+  color: #4a4a4a;
 }
 
 .headline {
   margin-left: 2rem;
+  color: #4a4a4a;
 }
 
 .card {
@@ -27,9 +31,11 @@ main {
   border-radius: 10px;
   height: 12rem;
   display: flex;
+  margin: 0;
   justify-content: space-between;
   max-width: 27rem;
   transition: all 0.3s ease-in-out;
+  color: #4a4a4a;
 }
 
 .card:hover {
@@ -43,10 +49,12 @@ main {
   justify-content: flex-start;
   text-align: start;
   margin: auto;
+  color: #4a4a4a;
 }
 
 .text-container h2 {
   margin: 0;
+  color: #4a4a4a;
 }
 
 .text-container p {
@@ -57,6 +65,11 @@ main {
 .card img {
   border-radius: 50%;
   margin: 2rem auto 2rem auto;
+}
+
+.avatar {
+  border-radius: 50%;
+  margin: auto;
 }
 
 .modal-container {
@@ -73,28 +86,33 @@ main {
 }
 
 .modal-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
   padding: 1rem 1.5rem;
-  width: 24rem;
+  width: 20rem;
   border-radius: 0.5rem;
 }
 
-.close-button {
-  float: right;
-  width: 1.5rem;
-  line-height: 1.5rem;
-  text-align: center;
-  cursor: pointer;
-  border-radius: 0.25rem;
-  background-color: lightgray;
+.modal-text-container {
+  margin: auto;
+  color: gray;
 }
 
-.close-button:hover {
-  background-color: darkgray;
+.modal-text-container h2 {
+  color: #4a4a4a;
+}
+
+.close-btn {
+  text-align: right;
+  width: 100%;
+  cursor: pointer;
 }
 
 .show-modal {
