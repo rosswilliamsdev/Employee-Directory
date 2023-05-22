@@ -108,12 +108,28 @@ main {
   color: #4a4a4a;
 }
 
-.previous {
+.previous,
+.next {
+  color: white;
+  position: absolute;
+  cursor: pointer;
+  outline: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: none;
+}
 
+.previous {
+  left: 1rem;
 }
 
 .next {
-  
+  right: 1rem;
+}
+
+svg {
+  fill: #4a4a4a;
 }
 
 .close-btn {
