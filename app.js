@@ -5,13 +5,13 @@ let modalContainer = document.getElementById('modal');
 let modalContent = document.querySelector('.modal-content')
 let closeBtn = document.querySelector('.close-btn');
 let employees = [];
+let previousArrow = document.querySelector('.previous');
+let nextArrow = document.querySelector('.next');
 
 
 // ////////////////////
 // FETCH FUNCTIONS 
 // ////////////////////
-
-// Convert this to async/await with helper functions
 
 fetch(urlAPI)
 .then(response => response.json())
@@ -19,8 +19,6 @@ fetch(urlAPI)
 .then(displayEmployees)
 .then(createCardsArray)
 .catch(error => console.log(error));
-
-
 
 // ////////////////////
 // HELPER FUNCTIONS
@@ -67,12 +65,12 @@ function createModal(index) {
     let modalHTML = `
     <span class="close-btn">&times;</span>
     <img class="avatar" src="${picture.large}" />
-    <button class='previous'>
+    <button class='previous arrow'>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
   <polygon points="15.293 3.293 6.586 12 15.293 20.707 16.707 19.293 9.414 12 16.707 4.707 15.293 3.293"/>
 </svg>
     </button>
-    <button class='next'>
+    <button class='next arrow'>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
   <polygon points="7.293 4.707 14.586 12 7.293 19.293 8.707 20.707 17.414 12 8.707 3.293 7.293 4.707"/>
 </svg>
@@ -101,15 +99,26 @@ function closeModal() {
 // EVENT LISTENERS
 //////////////////////
 
-
-
 document.addEventListener("click", (e) => {
     if (
-      e.target.matches(".close-btn") ||
-      !e.target.closest(".modal")
+      e.target.matches(".close-btn")
     ) {
       closeModal()
     }
-  },
-  false
-)
+  }, false)
+
+previousArrow.addEventListener('click', () => {
+    if(employees[index] === 0) {
+        createModal(11);
+    } else {
+        createModal(index - 1)
+    }
+})
+
+nextArrow.addEventListener('click', () => {
+    if(employees[index] === 11) {
+        createModal(0);
+    } else {
+        createModal(index + 1)
+    }
+})
