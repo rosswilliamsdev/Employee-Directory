@@ -10,31 +10,23 @@ let employees = [];
 
 
 // ////////////////////
-// FETCH FUNCTIONS 
+// FETCH 
 // ////////////////////
 
 fetch(urlAPI)
 .then(response => response.json())
 .then(response => response.results)
 .then(displayEmployees)
-.then(createCardsArray)
+.then(modalListeners)
+.then(search)
 .catch(error => console.log(error));
 
 // ////////////////////
-// HELPER FUNCTIONS
+// FUNCTIONS
 // /////////////////////
 
-function createCardsArray() {
-    let allCards = document.querySelectorAll(".card");
-    let cardsArray = Array.from(allCards);
-    cardsArray.forEach((card, index) => {
-        card.addEventListener('click', (e) => {
-            e.stopPropagation();
-            createModal(index)
-        })
-    })
-}
 
+// Creates cards from the employees array
 function displayEmployees(employeeData) {
     employees = employeeData;
     let employeeHTML = '';
@@ -58,6 +50,20 @@ function displayEmployees(employeeData) {
 gridContainer.innerHTML += employeeHTML;
 }
 
+// Adds click event listeners to the cards to create modals
+function modalListeners() {
+    let allCards = document.querySelectorAll(".card");
+    let cardsArray = Array.from(allCards);
+    cardsArray.forEach((card, index) => {
+        card.addEventListener('click', (e) => {
+            e.stopPropagation();
+            createModal(index)
+        })
+    })
+}
+
+// Creates modals from the card clicked
+// Adds event listeners to next/previous arrows so you can cycle through the modals
 function createModal(index) {
     let { name, dob, phone, email, location, picture } = employees[index];
     let date = new Date(dob.date);
@@ -117,28 +123,29 @@ function closeModal() {
 // EVENT LISTENERS
 //////////////////////
 
+// When the little x in upper right corner is clicked it closes the modal window
 document.addEventListener("click", (e) => {
     if (
-      e.target.matches(".close-btn")
-    ) {
+      e.target.matches(".close-btn")) {
       closeModal()
     }
   }, false)
 
-async function search() {
-    await fetch(urlAPI);
+// Employee cards should appear/disappear based on searchbar input
+function search() {
+    searchBar.addEventListener('keyup', (e) => {
+        let currentValue = e.target.value.toLowerCase();
+        let allCards = document.querySelectorAll(".card");
+        let cardsArray = Array.from(allCards);
 
- searchBar.addEventListener('keyup', (e) => {
-    let currentValue = e.target.value.toLowerCase();
+        console.log(currentValue);
 
-    employees.forEach(employee => {
-        const indexNumber = card.getAttribute('data-index');
-        if (employee.name.includes(currentValue)) {
-            card.style.display = 'block';
-        } else {
-            card.style.display = 'none';
-        }
-    })
-
-})     
+        cardsArray.forEach(card => {
+                if (card.innerText.includes(currentValue) || currentValue == '') {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            })
+    })     
 }
