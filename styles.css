@@ -9,6 +9,30 @@ body {
   flex-direction: column;
 }
 
+.headline {
+  position: relative;
+  margin-left: 2rem;
+  color: #4a4a4a;
+  top: 3.4rem;
+  margin-top: 0;
+}
+
+nav {
+  display: flex;
+  margin: 0;
+  justify-content: flex-end;
+  padding: 0;
+}
+
+.searchbar {
+  width: 40vw;
+  height: auto;
+  border: 2px solid #dfdfdf;
+  border-radius: 10px;
+  padding: 10px;
+  z-index: 5;
+}
+
 main {
   display: grid;
   margin: 2rem;
@@ -17,11 +41,6 @@ main {
   gap: 1rem;
   height: 100%;
   width: 100%;
-  color: #4a4a4a;
-}
-
-.headline {
-  margin-left: 2rem;
   color: #4a4a4a;
 }
 

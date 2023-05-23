@@ -4,9 +4,9 @@ const gridContainer = document.querySelector('.grid-container');
 let modalContainer = document.getElementById('modal');
 let modalContent = document.querySelector('.modal-content')
 let closeBtn = document.querySelector('.close-btn');
+let searchBar = document.querySelector('.searchbar');
 let employees = [];
-let previousArrow = document.querySelector('.previous');
-let nextArrow = document.querySelector('.next');
+
 
 
 // ////////////////////
@@ -65,12 +65,12 @@ function createModal(index) {
     let modalHTML = `
     <span class="close-btn">&times;</span>
     <img class="avatar" src="${picture.large}" />
-    <button class='previous arrow'>
+    <button class='previous'>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
   <polygon points="15.293 3.293 6.586 12 15.293 20.707 16.707 19.293 9.414 12 16.707 4.707 15.293 3.293"/>
 </svg>
     </button>
-    <button class='next arrow'>
+    <button class='next'>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
   <polygon points="7.293 4.707 14.586 12 7.293 19.293 8.707 20.707 17.414 12 8.707 3.293 7.293 4.707"/>
 </svg>
@@ -87,21 +87,21 @@ function createModal(index) {
     </div>
     `;
     modalContent.innerHTML = modalHTML;
-
     modalContainer.style.display = 'block';
 
+    let previousArrow = document.querySelector('.previous');
+    let nextArrow = document.querySelector('.next');
+
     previousArrow.addEventListener('click', () => {
-        console.log('clicked previous')
-        if(employees[index] === 0) {
+        if(index == 0) {
             createModal(11);
         } else {
-            createModal(index - 1)
+            createModal(index - 1);
         }
 })
 
     nextArrow.addEventListener('click', () => {
-        console.log('clicked next')
-        if(employees[index] === 11) {
+        if(index == 11) {
             createModal(0);
         } else {
             createModal(index + 1)
@@ -124,3 +124,21 @@ document.addEventListener("click", (e) => {
       closeModal()
     }
   }, false)
+
+async function search() {
+    await fetch(urlAPI);
+
+ searchBar.addEventListener('keyup', (e) => {
+    let currentValue = e.target.value.toLowerCase();
+
+    employees.forEach(employee => {
+        const indexNumber = card.getAttribute('data-index');
+        if (employee.name.includes(currentValue)) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    })
+
+})     
+}
