@@ -25,11 +25,13 @@ nav {
 }
 
 .searchbar {
-  width: 40vw;
+  width: 27rem;
   height: auto;
   border: 2px solid #dfdfdf;
   border-radius: 10px;
   padding: 10px;
+  position: relative;
+  left: 7px;
   z-index: 5;
 }
 

@@ -141,7 +141,7 @@ function search() {
         console.log(currentValue);
 
         cardsArray.forEach(card => {
-                if (card.innerText.includes(currentValue) || currentValue == '') {
+                if (card.innerText.includes(currentValue)) {
                     card.style.display = 'flex';
                 } else {
                     card.style.display = 'none';
