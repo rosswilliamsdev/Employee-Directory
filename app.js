@@ -18,6 +18,7 @@ fetch(urlAPI)
 .then(response => response.results)
 .then(displayEmployees)
 .then(createCardsArray)
+.then(cycleModals)
 .catch(error => console.log(error));
 
 // ////////////////////
@@ -107,7 +108,12 @@ document.addEventListener("click", (e) => {
     }
   }, false)
 
-previousArrow.addEventListener('click', () => {
+
+
+function cycleModals() {
+
+
+    previousArrow.addEventListener('click', () => {
     if(employees[index] === 0) {
         createModal(11);
     } else {
@@ -122,3 +128,4 @@ nextArrow.addEventListener('click', () => {
         createModal(index + 1)
     }
 })
+}
