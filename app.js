@@ -18,7 +18,6 @@ fetch(urlAPI)
 .then(response => response.results)
 .then(displayEmployees)
 .then(createCardsArray)
-.then(cycleModals)
 .catch(error => console.log(error));
 
 // ////////////////////
@@ -90,6 +89,24 @@ function createModal(index) {
     modalContent.innerHTML = modalHTML;
 
     modalContainer.style.display = 'block';
+
+    previousArrow.addEventListener('click', () => {
+        console.log('clicked previous')
+        if(employees[index] === 0) {
+            createModal(11);
+        } else {
+            createModal(index - 1)
+        }
+})
+
+    nextArrow.addEventListener('click', () => {
+        console.log('clicked next')
+        if(employees[index] === 11) {
+            createModal(0);
+        } else {
+            createModal(index + 1)
+        }
+    })
 }
 
 function closeModal() {
@@ -107,25 +124,3 @@ document.addEventListener("click", (e) => {
       closeModal()
     }
   }, false)
-
-
-
-function cycleModals() {
-
-
-    previousArrow.addEventListener('click', () => {
-    if(employees[index] === 0) {
-        createModal(11);
-    } else {
-        createModal(index - 1)
-    }
-})
-
-nextArrow.addEventListener('click', () => {
-    if(employees[index] === 11) {
-        createModal(0);
-    } else {
-        createModal(index + 1)
-    }
-})
-}
